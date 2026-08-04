@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Coach Lily — design tokens.
+ * Dark athletic palette: near-black canvas, white type, competition red accent.
+ * The site renders dark-only, so :root and .dark carry the same values; the
+ * .dark class stays on <html> so `dark:` utilities in third-party components
+ * (e.g. container-scroll-animation) resolve correctly.
+ */
+:root {
+  --radius: 0.75rem;
+
+  --background: #09090b;
+  --foreground: #fafafa;
+
+  --card: #111113;
+  --card-foreground: #fafafa;
+
+  --popover: #111113;
+  --popover-foreground: #fafafa;
+
+  --primary: #dc2626;
+  --primary-foreground: #ffffff;
+
+  --secondary: #18181b;
+  --secondary-foreground: #fafafa;
+
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #ef4444;
+  --accent-foreground: #ffffff;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #dc2626;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #111113;
+  --popover-foreground: #fafafa;
+  --primary: #dc2626;
+  --primary-foreground: #ffffff;
+  --secondary: #18181b;
+  --secondary-foreground: #fafafa;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --accent: #ef4444;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #dc2626;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-oswald);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    /* The scroll-driven hero rotates a wide card; keep it from bleeding sideways. */
+    overflow-x: hidden;
+  }
+
+  /* Visible keyboard focus everywhere — restyled, never removed. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Small uppercase label used for section eyebrows and stat captions. */
+  .eyebrow {
+    @apply font-display text-xs font-medium uppercase tracking-[0.28em] text-muted-foreground;
+  }
+}
+
+/* Respect users who ask the OS to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
