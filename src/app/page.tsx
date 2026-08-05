@@ -1,6 +1,7 @@
 import { Audiences } from "@/components/sections/audiences";
 import { Booking } from "@/components/sections/booking";
 import { Coach } from "@/components/sections/coach";
+import { Gallery } from "@/components/sections/gallery";
 import { GracieBarra } from "@/components/sections/gracie-barra";
 import { Hero } from "@/components/sections/hero";
 import { Pricing } from "@/components/sections/pricing";
@@ -15,6 +16,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Coach />
+        <Gallery />
         <Audiences />
         <Titles />
         <GracieBarra />

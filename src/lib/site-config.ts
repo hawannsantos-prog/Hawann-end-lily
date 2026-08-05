@@ -64,6 +64,37 @@ export const siteConfig = {
     },
   ],
 
+  /**
+   * The scroll-through gallery. Each entry is one frame in the sequence:
+   * scrolling cross-fades from one to the next, and the run ends on the 3D
+   * medal.
+   *
+   * `src` is null until you add real photos. Drop a file in /public and set
+   * `src: "/training.jpg"` — the placeholder frame is replaced automatically,
+   * no component changes needed. `alt` is what a screen reader announces, so
+   * describe the picture; `caption` is the line shown on screen.
+   */
+  gallery: [
+    {
+      src: null as string | null,
+      alt: "Lily drilling a technique with a student on the mats",
+      caption: "Every session starts where you actually are",
+      kicker: "The Work",
+    },
+    {
+      src: null as string | null,
+      alt: "Lily coaching from the edge of the mat during a round",
+      caption: "Detail by detail, round after round",
+      kicker: "The Detail",
+    },
+    {
+      src: null as string | null,
+      alt: "Lily competing at an IBJJF tournament",
+      caption: "Tested at the highest level in the sport",
+      kicker: "The Proof",
+    },
+  ],
+
   audiences: [
     {
       key: "competitors",

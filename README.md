@@ -166,6 +166,36 @@ light/dark prop.
 The light surface uses a darker red (`#c81e1e`) than the dark one: `#dc2626` on
 white is only 4.0:1, below the 4.5:1 minimum.
 
+### The scroll-through gallery
+
+[`sections/gallery.tsx`](src/components/sections/gallery.tsx) is a pinned
+sequence: the section is several screens tall, its contents stick to the
+viewport, and scrolling cross-fades from one frame to the next — three photos,
+then the 3D medal.
+
+It is driven by scroll *position*, not by timers, so it is fully scrubbable:
+scroll back up and it runs in reverse, stop halfway and it holds there.
+
+Photos and captions come from `gallery` in
+[`site-config.ts`](src/lib/site-config.ts). Each `src` is `null` until you add
+real photos — drop a file in `/public`, set `src: "/training.jpg"`, and the
+placeholder frame is replaced automatically.
+
+Two details worth knowing if you change the timing:
+
+- **Photos cross-fade; captions swap.** Two images dissolving through each other
+  reads as a transition, but two headlines doing it reads as a rendering fault.
+  Text frames therefore finish fading inside their own slice (`sharp`).
+- **Visibility is a function, not an interpolated stop list.** The stop-array
+  version needed clamping at the first and last frames, where it ran outside
+  `[0, 1]` and produced a keyframe list the Web Animations API rejects — which
+  throws during hydration and blanks the whole page, not just the animation.
+  The clamped version then silently misinterpolated, leaving frame one fading
+  back in at the end of the run.
+
+Under `prefers-reduced-motion` the pinning is dropped entirely and the frames
+render as a plain three-up grid.
+
 ### 3D championship medals
 
 The titles section renders three real WebGL medals (gold, silver, bronze) that
