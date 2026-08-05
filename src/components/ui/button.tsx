@@ -14,11 +14,16 @@ const buttonVariants = cva(
         ghost: "text-muted-foreground hover:bg-secondary hover:text-foreground",
         destructive:
           "border border-destructive/50 bg-transparent text-destructive hover:bg-destructive hover:text-destructive-foreground",
+        /* Sportswear-store CTA: solid ink pill, inverts on hover. */
+        pill: "rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground",
+        pillOutline:
+          "rounded-full border border-foreground/25 bg-transparent text-foreground hover:border-foreground hover:bg-foreground hover:text-background",
       },
       size: {
         default: "h-11 px-6 py-2",
         sm: "h-9 rounded-md px-4 text-xs",
         lg: "h-14 rounded-xl px-9 text-base",
+        pill: "h-12 px-8 text-sm",
         icon: "size-11",
       },
     },

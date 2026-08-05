@@ -2,96 +2,137 @@ import { Check } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { Stage } from "@/components/ui/stage";
+import { Container, Section } from "@/components/ui/section";
 import { siteConfig } from "@/lib/site-config";
 
 const { pricing } = siteConfig;
 
-const tiers = [
+type Tier = {
+  price: string;
+  unit: string;
+  name: string;
+  description: string;
+  featured: boolean;
+};
+
+/**
+ * Only tiers with a real price are shown. `packageRate` and
+ * `partnerSurchargePercent` are null in site-config until they're set, so the
+ * page shows one clean price instead of a placeholder.
+ */
+const tiers: Tier[] = [
   {
     price: `${pricing.currencySymbol}${pricing.single}`,
     unit: "per lesson",
-    name: "Single Lesson",
-    description: `One ${pricing.sessionMinutes}-minute private session, one-on-one.`,
-    featured: false,
-  },
-  {
-    price: `${pricing.currencySymbol}${pricing.packageRate}`,
-    unit: "each",
-    name: `${pricing.packageMinimum}+ Lesson Package`,
-    description: `Book ${pricing.packageMinimum} or more sessions and the rate drops for every lesson.`,
+    name: "Private Lesson",
+    description: `One ${pricing.sessionMinutes}-minute private session, one-on-one — for competitors and beginners alike.`,
     featured: true,
   },
-  {
-    price: `+${pricing.partnerSurchargePercent}%`,
-    unit: "split it",
-    name: "Bring a Partner",
-    description:
-      "Train with someone else for a 20% surcharge — split between you, it works out cheaper each.",
-    featured: false,
-  },
+  ...(pricing.packageRate !== null
+    ? [
+        {
+          price: `${pricing.currencySymbol}${pricing.packageRate}`,
+          unit: "each",
+          name: `${pricing.packageMinimum}+ Lesson Package`,
+          description: `Book ${pricing.packageMinimum} or more sessions and the rate drops for every lesson.`,
+          featured: false,
+        },
+      ]
+    : []),
+  ...(pricing.partnerSurchargePercent !== null
+    ? [
+        {
+          price: `+${pricing.partnerSurchargePercent}%`,
+          unit: "split it",
+          name: "Bring a Partner",
+          description:
+            "Train with someone else for a surcharge — split between you, it works out cheaper each.",
+          featured: false,
+        },
+      ]
+    : []),
 ];
 
 const included = [
   `${pricing.sessionMinutes}-minute session`,
-  "One-on-one, or with a partner",
+  // Only promise partner training while that tier is actually priced.
+  pricing.partnerSurchargePercent !== null
+    ? "One-on-one, or with a partner"
+    : "One-on-one",
   "Built around your goals",
   "Cancel or reschedule yourself",
 ];
 
 export function Pricing() {
+  const single = tiers.length === 1;
+
   return (
-    <Stage
-      id="pricing"
-      intensity="soft"
-      className="border-t border-border/60 py-24 md:py-32"
-    >
-      <div className="mx-auto w-full max-w-6xl px-5">
+    <Section id="pricing" tone="grey" className="py-24 md:py-36">
+      <Container>
         <Reveal>
           <p className="eyebrow">Rates</p>
-          <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
-            Simple, per-session pricing
+          <h2 className="mt-6 max-w-2xl text-balance font-display text-4xl font-bold uppercase leading-[0.92] tracking-tight md:text-7xl">
+            One hour. One student. One price.
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div
+          className={
+            single
+              ? "mt-16 grid gap-6"
+              : "mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          }
+        >
           {tiers.map((tier, index) => (
             <Reveal
               key={tier.name}
               as="article"
               delay={index * 0.1}
               className={
-                tier.featured
-                  ? "relative rounded-xl border border-primary/60 bg-card p-8"
-                  : "relative rounded-xl border border-border bg-card p-8"
+                single
+                  ? "flex flex-col items-start gap-8 rounded-2xl bg-background p-10 md:flex-row md:items-center md:justify-between md:p-14"
+                  : "rounded-2xl bg-background p-10"
               }
             >
-              {tier.featured ? (
-                <span className="absolute right-6 top-6 rounded-full bg-primary/15 px-3 py-1 font-display text-[0.65rem] uppercase tracking-[0.18em] text-primary">
-                  Best value
-                </span>
+              <div>
+                <p className="eyebrow">{tier.name}</p>
+                <p className="mt-4 flex items-baseline gap-3">
+                  <span
+                    className={
+                      single
+                        ? "font-display text-7xl font-bold leading-none tracking-tight text-foreground md:text-9xl"
+                        : "font-display text-5xl font-bold leading-none tracking-tight text-foreground"
+                    }
+                  >
+                    {tier.price}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {tier.unit}
+                  </span>
+                </p>
+                <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  {tier.description}
+                </p>
+              </div>
+
+              {single ? (
+                <a
+                  href="#book"
+                  className={buttonVariants({
+                    variant: "pill",
+                    size: "pill",
+                    className: "shrink-0",
+                  })}
+                >
+                  Book a lesson
+                </a>
               ) : null}
-              <p className="eyebrow">{tier.name}</p>
-              <p className="mt-5 flex items-baseline gap-2">
-                <span className="font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-                  {tier.price}
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  {tier.unit}
-                </span>
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                {tier.description}
-              </p>
             </Reveal>
           ))}
         </div>
 
-        <Reveal
-          delay={0.1}
-          className="mt-10 flex flex-col items-start justify-between gap-8 rounded-xl border border-border bg-card/40 p-8 md:flex-row md:items-center"
-        >
-          <ul className="grid gap-3 sm:grid-cols-2">
+        <Reveal delay={0.1} className="mt-10">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {included.map((item) => (
               <li
                 key={item}
@@ -99,18 +140,15 @@ export function Pricing() {
               >
                 <Check
                   className="size-4 shrink-0 text-primary"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   aria-hidden
                 />
                 {item}
               </li>
             ))}
           </ul>
-          <a href="#book" className={buttonVariants({ size: "lg" })}>
-            See available times
-          </a>
         </Reveal>
-      </div>
-    </Stage>
+      </Container>
+    </Section>
   );
 }

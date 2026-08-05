@@ -25,7 +25,13 @@ export function Stage({
   const soft = intensity === "soft";
 
   return (
-    <section id={id} className={cn("relative isolate overflow-hidden", className)}>
+    <section
+      id={id}
+      className={cn(
+        "surface-dark stage-grade relative isolate scroll-mt-16 overflow-hidden bg-background text-foreground",
+        className,
+      )}
+    >
       {/* Key light: a broad cone falling from above centre. */}
       <div
         aria-hidden

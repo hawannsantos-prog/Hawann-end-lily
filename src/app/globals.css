@@ -42,7 +42,8 @@
   --ring: #dc2626;
 }
 
-.dark {
+.dark,
+.surface-dark {
   --background: #09090b;
   --foreground: #fafafa;
   --card: #111113;
@@ -62,6 +63,48 @@
   --border: #27272a;
   --input: #27272a;
   --ring: #dc2626;
+}
+
+/*
+ * Light surface — the Nike half of the site: white canvas, near-black type,
+ * hairline greys. Redefining the same variable names means every component
+ * (buttons, cards, the booking calendar) re-themes itself just by being inside
+ * a .surface-light wrapper. No component needs a light/dark prop.
+ *
+ * Contrast checked against #ffffff:
+ *   --foreground     #0a0a0a  → 19.9:1  (AAA)
+ *   --muted-foreground #52525b → 7.5:1  (AAA)
+ *   --primary        #c81e1e  → 5.7:1   (AA, and AA-large for big type)
+ */
+.surface-light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+
+  --card: #f4f4f5;
+  --card-foreground: #0a0a0a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+
+  /* Darker red than the dark surface uses — #dc2626 on white is only 4.0:1. */
+  --primary: #c81e1e;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0a;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+
+  --accent: #a51818;
+  --accent-foreground: #ffffff;
+
+  --destructive: #c81e1e;
+  --destructive-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --input: #d4d4d8;
+  --ring: #0a0a0a;
 }
 
 @theme inline {
@@ -118,18 +161,18 @@
   }
 
   /*
-   * Film grain + vignette, applied once to <body> via ::after. Fixed position
-   * so it sits over the whole viewport without moving on scroll, and
-   * pointer-events:none so it never intercepts clicks.
+   * Film grain + vignette. Scoped to the dark stages rather than the whole
+   * page: over a white section an overlay-blended noise layer reads as dirt,
+   * not as film. Absolute (not fixed) so it clips to its own section.
    *
    * The grain is an inline SVG feTurbulence — no image request, a few hundred
    * bytes, and it composites on the GPU.
    */
-  .cinematic-grade::after {
+  .stage-grade::after {
     content: "";
-    position: fixed;
+    position: absolute;
     inset: 0;
-    z-index: 100;
+    z-index: 20;
     pointer-events: none;
     background-image:
       radial-gradient(

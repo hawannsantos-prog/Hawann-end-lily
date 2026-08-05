@@ -26,12 +26,18 @@ prices, session length, championship titles, who she coaches, contact details,
 timezone, and the weekly availability template. You should not need to touch a
 component to change what the site says.
 
-Two values to set before this goes live:
+Values to set before this goes live:
 
 | Value | Where | Currently |
 | --- | --- | --- |
 | Timezone | `coach.timezone` / `coach.timezoneLabel` | `Europe/London` / "UK time" |
 | Contact | `contact.email` / `contact.instagram` | placeholders |
+| Package rate | `pricing.packageRate` | `null` — tier hidden |
+| Partner rate | `pricing.partnerSurchargePercent` | `null` — tier hidden |
+
+The single lesson is **$130 per 60 minutes**. The multi-lesson and partner tiers
+are `null`, so the pricing section renders one clean price instead of a
+placeholder. Set either to a number and its card appears automatically.
 
 Weekly availability is a plain map of weekday → session start hours:
 
@@ -141,6 +147,42 @@ npx shadcn@latest add dialog card badge
 Dark athletic palette — near-black canvas, white type, competition red accent —
 matching Gracie Barra's colours. Oswald (condensed) for display and labels, Inter
 for body. Direction generated with the `ui-ux-pro-max` skill in `.claude/skills/`.
+
+### Light and dark surfaces
+
+The page alternates between two visual registers:
+
+- **Light sections** (coach, lessons, Gracie Barra, pricing, booking) —
+  sportswear-store language: white canvas, very large tight uppercase headlines,
+  image-led cards, solid black pill CTAs.
+- **Dark sections** (hero, championship titles, footer) — the cinematic stage.
+
+Both come from the same token names. `<Section>` sets `.surface-light` and
+`<Stage>` sets `.surface-dark`, each redefining `--background`, `--foreground`,
+`--primary` and friends in place — so buttons, cards and the whole booking
+calendar re-theme themselves just by being inside one. No component takes a
+light/dark prop.
+
+The light surface uses a darker red (`#c81e1e`) than the dark one: `#dc2626` on
+white is only 4.0:1, below the 4.5:1 minimum.
+
+### 3D championship medals
+
+The titles section renders three real WebGL medals (gold, silver, bronze) that
+spin under the same red stage lighting — see
+[`ui/medal-3d.tsx`](src/components/ui/medal-3d.tsx).
+
+- **Procedural geometry, no model files.** A medal is a disc, a rim torus, a
+  boss and a ribbon — a few hundred triangles. A `.glb` would be a megabyte-plus
+  asset to host and cache for the same result.
+- **No HDRI download.** Metal needs something to reflect; the environment is
+  built in-scene from `<Lightformer>` panels, so it costs one 128px cube render
+  and fetches nothing.
+- **Three.js is loaded lazily** (`next/dynamic`, `ssr: false`) so ~600 KB never
+  blocks first paint. The fallback holds the same footprint — no layout shift.
+- **The render loop stops when off screen** (IntersectionObserver drives
+  `frameloop`), and DPR is capped at 1.5, so phones don't burn battery.
+- Under `prefers-reduced-motion` the medals hold still.
 
 ### The cinematic treatment
 

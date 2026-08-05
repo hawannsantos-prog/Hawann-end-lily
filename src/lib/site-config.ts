@@ -26,10 +26,19 @@ export const siteConfig = {
 
   pricing: {
     sessionMinutes: 60,
-    single: 100,
-    packageRate: 90,
+    single: 130,
+    /**
+     * Multi-lesson and partner rates are OFF until you set real numbers.
+     * The pricing section only renders a tier once its value is non-null, so
+     * the page stays clean instead of showing a placeholder price.
+     *
+     * To turn the package tier on: set packageRate to the per-lesson price,
+     * e.g. `packageRate: 117`. To turn partner pricing on: set
+     * partnerSurchargePercent, e.g. `partnerSurchargePercent: 20`.
+     */
+    packageRate: null as number | null,
     packageMinimum: 5,
-    partnerSurchargePercent: 20,
+    partnerSurchargePercent: null as number | null,
     currency: "USD",
     currencySymbol: "$",
   },

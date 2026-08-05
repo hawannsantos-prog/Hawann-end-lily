@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Dot, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { Stage } from "@/components/ui/stage";
+import { Container, Section } from "@/components/ui/section";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -90,11 +90,11 @@ export function Booking() {
   }
 
   return (
-    <Stage id="book" className="border-t border-border/60 py-24 md:py-32">
-      <div className="mx-auto w-full max-w-6xl px-5">
+    <Section id="book" className="py-24 md:py-36">
+      <Container>
         <Reveal>
           <p className="eyebrow">Book a Lesson</p>
-          <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
+          <h2 className="mt-6 max-w-2xl text-balance font-display text-4xl font-bold uppercase leading-[0.92] tracking-tight md:text-7xl">
             Pick a time that works
           </h2>
         </Reveal>
@@ -172,7 +172,7 @@ export function Booking() {
         ) : null}
 
         <Legend />
-      </div>
+      </Container>
 
       {dialog?.kind === "book" ? (
         <BookingDialog
@@ -189,7 +189,7 @@ export function Booking() {
           onConfirm={handleCancel}
         />
       ) : null}
-    </Stage>
+    </Section>
   );
 }
 
@@ -287,7 +287,7 @@ function SlotButton({
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isMine
           ? "border-primary bg-primary text-primary-foreground hover:bg-accent"
-          : "border-zinc-700 bg-secondary text-foreground hover:border-primary hover:bg-primary/10",
+          : "border-input bg-secondary text-foreground hover:border-primary hover:bg-primary/10",
       )}
       aria-label={
         isMine
@@ -304,7 +304,7 @@ function Legend() {
   return (
     <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-muted-foreground">
       <li className="flex items-center gap-2">
-        <span className="size-3 rounded-sm border border-zinc-700 bg-secondary" />
+        <span className="size-3 rounded-sm border border-input bg-secondary" />
         Open
       </li>
       <li className="flex items-center gap-2">

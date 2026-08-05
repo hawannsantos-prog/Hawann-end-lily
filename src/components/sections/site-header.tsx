@@ -11,11 +11,12 @@ const links = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
+    // White bar floating over the dark hero — the sportswear-store pattern.
+    <header className="surface-light sticky top-0 z-50 border-b border-border bg-background text-foreground">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5">
         <Link
           href="#top"
-          className="font-display text-sm font-medium uppercase tracking-[0.22em] text-foreground"
+          className="font-display text-sm font-bold uppercase tracking-[0.22em]"
         >
           {siteConfig.coach.displayName}
         </Link>
@@ -25,14 +26,17 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              className="text-sm font-medium transition-colors duration-200 hover:text-muted-foreground"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <a href="#book" className={buttonVariants({ size: "sm" })}>
+        <a
+          href="#book"
+          className={buttonVariants({ variant: "pill", size: "sm" })}
+        >
           Book a lesson
         </a>
       </div>

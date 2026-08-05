@@ -1,6 +1,6 @@
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
-import { Stage } from "@/components/ui/stage";
+import { Container, Section } from "@/components/ui/section";
 import { siteConfig } from "@/lib/site-config";
 
 const stats = [
@@ -11,19 +11,15 @@ const stats = [
 
 export function GracieBarra() {
   return (
-    <Stage
-      intensity="soft"
-      className="border-t border-border/60 bg-card/40 py-24 md:py-32"
-    >
-      <div className="mx-auto w-full max-w-6xl px-5">
+    <Section className="py-24 md:py-36">
+      <Container>
         <div className="grid gap-14 md:grid-cols-2 md:gap-20">
           <Reveal>
             <p className="eyebrow">Proudly Team {siteConfig.coach.team}</p>
-            <h2 className="mt-5 text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-4xl">
-              Training and competing under the largest Jiu-Jitsu team in the
-              world
+            <h2 className="mt-6 text-balance font-display text-4xl font-bold uppercase leading-[0.92] tracking-tight md:text-6xl">
+              Training under the largest Jiu-Jitsu team in the world
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-8 text-base leading-relaxed text-muted-foreground md:text-lg">
               Founded in 1986 by Master Carlos Gracie Jr., Gracie Barra now
               spans over 1,000 schools worldwide — a lineage of structure and
               discipline I bring into every private lesson.
@@ -31,11 +27,11 @@ export function GracieBarra() {
           </Reveal>
 
           <Reveal direction="right" delay={0.12}>
-            <dl className="grid gap-px overflow-hidden rounded-xl border border-border bg-border">
+            <dl className="divide-y divide-border border-y border-border">
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-background px-7 py-8">
+                <div key={stat.label} className="py-8">
                   <dt className="eyebrow">{stat.label}</dt>
-                  <dd className="mt-2 font-display text-2xl font-semibold uppercase tracking-tight text-foreground md:text-3xl">
+                  <dd className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-foreground md:text-4xl">
                     {stat.value}
                   </dd>
                 </div>
@@ -43,7 +39,7 @@ export function GracieBarra() {
             </dl>
           </Reveal>
         </div>
-      </div>
-    </Stage>
+      </Container>
+    </Section>
   );
 }
