@@ -412,19 +412,23 @@ function BookingDialog({
             placeholder="Goals, injuries, belt level…"
           />
 
-          <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4 text-sm">
-            <input
-              type="checkbox"
-              name="partner"
-              className="mt-0.5 size-4 cursor-pointer accent-[var(--primary)]"
-            />
-            <span className="text-muted-foreground">
-              I&rsquo;m bringing a training partner{" "}
-              <span className="text-foreground">
-                (+{pricing.partnerSurchargePercent}%, split between you)
+          {/* Only offer partner training while that surcharge is actually
+              priced — otherwise this reads "(+%, split between you)". */}
+          {pricing.partnerSurchargePercent !== null ? (
+            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4 text-sm">
+              <input
+                type="checkbox"
+                name="partner"
+                className="mt-0.5 size-4 cursor-pointer accent-[var(--primary)]"
+              />
+              <span className="text-muted-foreground">
+                I&rsquo;m bringing a training partner{" "}
+                <span className="text-foreground">
+                  (+{pricing.partnerSurchargePercent}%, split between you)
+                </span>
               </span>
-            </span>
-          </label>
+            </label>
+          ) : null}
         </div>
 
         <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">

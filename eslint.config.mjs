@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vendored AI-assistant skill files — not application source.
     ".claude/**",
+    // Generated preview bundle.
+    "preview/dist/**",
   ]),
 ]);
 
