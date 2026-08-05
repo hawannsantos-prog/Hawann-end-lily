@@ -34,3 +34,24 @@ export function Link({
     </a>
   );
 }
+
+/**
+ * Stand-in for next/image. The real one pulls in Next runtime internals that
+ * expect `process` to exist; the preview only needs the pixels.
+ */
+export function Img({
+  src,
+  alt,
+  fill,
+  // `sizes` drives next/image's srcset, which a plain <img> has no use for.
+  sizes,
+  ...rest
+}: React.ComponentProps<"img"> & { fill?: boolean; sizes?: string }) {
+  void sizes;
+
+  const style = fill
+    ? ({ position: "absolute", inset: 0, width: "100%", height: "100%" } as const)
+    : undefined;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt={alt ?? ""} style={style} {...rest} />;
+}
