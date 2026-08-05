@@ -34,7 +34,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`dark ${inter.variable} ${oswald.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="cinematic-grade min-h-full flex flex-col">
+        {children}
+      </body>
     </html>
   );
 }

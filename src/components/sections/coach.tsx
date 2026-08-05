@@ -1,16 +1,27 @@
 import { PhotoSlot } from "@/components/ui/photo-slot";
+import { Reveal } from "@/components/ui/reveal";
+import { LightPool, Stage } from "@/components/ui/stage";
 
 export function Coach() {
   return (
-    <section id="coach" className="border-t border-border/60 py-24 md:py-32">
+    <Stage
+      id="coach"
+      intensity="soft"
+      className="border-t border-border/60 py-24 md:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-5">
-        <p className="eyebrow">Meet Your Coach</p>
-        <h2 className="mt-5 max-w-3xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
-          Competing at the highest level — and coaching the same way.
-        </h2>
+        <Reveal>
+          <p className="eyebrow">Meet Your Coach</p>
+          <h2 className="mt-5 max-w-3xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
+            Competing at the highest level — and coaching the same way.
+          </h2>
+        </Reveal>
 
         <div className="mt-14 grid gap-12 md:grid-cols-[1fr_420px] md:gap-16">
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+          <Reveal
+            delay={0.1}
+            className="space-y-6 text-base leading-relaxed text-muted-foreground md:text-lg"
+          >
             <p>
               I&rsquo;m Lily, a competitor for{" "}
               <span className="text-foreground">Gracie Barra</span> and a
@@ -33,14 +44,17 @@ export function Coach() {
               what they&rsquo;re individually striving for, and do everything I
               can to get them there.
             </p>
-          </div>
+          </Reveal>
 
-          <PhotoSlot
-            ratio="portrait"
-            label="Portrait of Lily — in the gi, or on the podium. Portrait crop, at least 900×1200."
-          />
+          <Reveal direction="right" delay={0.15}>
+            <PhotoSlot
+              ratio="portrait"
+              label="Portrait of Lily — in the gi, or on the podium. Portrait crop, at least 900×1200."
+            />
+            <LightPool className="-mt-2" />
+          </Reveal>
         </div>
       </div>
-    </section>
+    </Stage>
   );
 }

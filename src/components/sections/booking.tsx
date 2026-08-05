@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Dot, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
+import { Stage } from "@/components/ui/stage";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -88,12 +90,14 @@ export function Booking() {
   }
 
   return (
-    <section id="book" className="border-t border-border/60 py-24 md:py-32">
+    <Stage id="book" className="border-t border-border/60 py-24 md:py-32">
       <div className="mx-auto w-full max-w-6xl px-5">
-        <p className="eyebrow">Book a Lesson</p>
-        <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
-          Pick a time that works
-        </h2>
+        <Reveal>
+          <p className="eyebrow">Book a Lesson</p>
+          <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
+            Pick a time that works
+          </h2>
+        </Reveal>
 
         {/* Week navigation */}
         <div className="mt-12 flex items-center justify-between gap-4 border-b border-border pb-5">
@@ -185,7 +189,7 @@ export function Booking() {
           onConfirm={handleCancel}
         />
       ) : null}
-    </section>
+    </Stage>
   );
 }
 

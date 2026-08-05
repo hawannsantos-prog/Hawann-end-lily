@@ -142,6 +142,31 @@ Dark athletic palette — near-black canvas, white type, competition red accent 
 matching Gracie Barra's colours. Oswald (condensed) for display and labels, Inter
 for body. Direction generated with the `ui-ux-pro-max` skill in `.claude/skills/`.
 
+### The cinematic treatment
+
+Styled after immersive product showcases (the Adidas × Foot Locker "Chile 20"
+site was the reference): subjects posed on a dark stage, lit from above, with red
+rim lights raking in from the sides.
+
+- **[`ui/stage.tsx`](src/components/ui/stage.tsx)** — `<Stage>` wraps a section
+  in studio lighting: key light from above, red side rims, a vertical beam behind
+  the subject, and haze so the light reads as volumetric. `<LightPool>` is the
+  pool of light an object casts on the floor. All pure CSS gradients — no images,
+  no WebGL, nothing to download.
+- **[`ui/reveal.tsx`](src/components/ui/reveal.tsx)** — fades and lifts content
+  in as it scrolls into view, staggered across siblings.
+- **[`ui/count-up.tsx`](src/components/ui/count-up.tsx)** — the "1,000+" schools
+  figure counts up on first view.
+- **Film grain + vignette** — one `::after` on `<body>` (`.cinematic-grade` in
+  `globals.css`), using an inline SVG turbulence filter.
+
+The reference site is a real-time 3D scene with modelled products. This is the
+same *lighting and staging language* rebuilt in CSS — it costs nothing to load
+and works on any phone, but it is lighting around your photos, not 3D geometry.
+Which means: **the effect depends on the photos.** On empty placeholder frames it
+reads as atmosphere; with real photos of Lily on the mats it reads as a showcase.
+
 Accessibility: visible keyboard focus throughout, `aria-label`s on every slot
 button, `aria-live` on the availability grid, native `<dialog>` for focus
-trapping and Esc-to-close, and `prefers-reduced-motion` respected.
+trapping and Esc-to-close, and `prefers-reduced-motion` respected — reveals and
+the counter render their final state instead of animating.

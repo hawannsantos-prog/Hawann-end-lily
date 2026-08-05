@@ -1,6 +1,8 @@
 import { Check } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
+import { Stage } from "@/components/ui/stage";
 import { siteConfig } from "@/lib/site-config";
 
 const { pricing } = siteConfig;
@@ -39,17 +41,25 @@ const included = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="border-t border-border/60 py-24 md:py-32">
+    <Stage
+      id="pricing"
+      intensity="soft"
+      className="border-t border-border/60 py-24 md:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-5">
-        <p className="eyebrow">Rates</p>
-        <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
-          Simple, per-session pricing
-        </h2>
+        <Reveal>
+          <p className="eyebrow">Rates</p>
+          <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-semibold uppercase leading-tight tracking-tight md:text-5xl">
+            Simple, per-session pricing
+          </h2>
+        </Reveal>
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {tiers.map((tier) => (
-            <article
+          {tiers.map((tier, index) => (
+            <Reveal
               key={tier.name}
+              as="article"
+              delay={index * 0.1}
               className={
                 tier.featured
                   ? "relative rounded-xl border border-primary/60 bg-card p-8"
@@ -73,11 +83,14 @@ export function Pricing() {
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 {tier.description}
               </p>
-            </article>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-8 rounded-xl border border-border bg-card/40 p-8 md:flex-row md:items-center">
+        <Reveal
+          delay={0.1}
+          className="mt-10 flex flex-col items-start justify-between gap-8 rounded-xl border border-border bg-card/40 p-8 md:flex-row md:items-center"
+        >
           <ul className="grid gap-3 sm:grid-cols-2">
             {included.map((item) => (
               <li
@@ -96,8 +109,8 @@ export function Pricing() {
           <a href="#book" className={buttonVariants({ size: "lg" })}>
             See available times
           </a>
-        </div>
+        </Reveal>
       </div>
-    </section>
+    </Stage>
   );
 }

@@ -1,11 +1,12 @@
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { PhotoSlot } from "@/components/ui/photo-slot";
+import { Stage } from "@/components/ui/stage";
 
 export function Hero() {
   return (
     // The scroll card is pinned inside a fixed 80rem track and lands well above
     // its own bottom edge; the negative margin reclaims that dead space.
-    <section id="top" className="-mb-24 flex flex-col overflow-hidden md:-mb-44">
+    <Stage id="top" className="-mb-24 flex flex-col md:-mb-44">
       <ContainerScroll
         titleComponent={
           // pb clears the card's -mt-12 overlap so the last line stays visible.
@@ -30,6 +31,6 @@ export function Hero() {
           className="rounded-xl border-0"
         />
       </ContainerScroll>
-    </section>
+    </Stage>
   );
 }
