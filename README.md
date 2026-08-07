@@ -3,6 +3,11 @@
 Site institucional/catálogo da Dermovita com os produtos renderizados em 3D
 interativo no navegador (WebGL/Three.js). Todo o conteúdo está em português.
 
+A linha é uma rotina de três passos em torno do óleo de jojoba — óleo de
+limpeza, sérum e primer —, no formato e na direção visual de coleções de
+clean beauty do mercado. Os nomes, textos e preços são da Dermovita, não
+de nenhuma marca existente.
+
 **Site modelo:** os dados de contato, WhatsApp e CNPJ são placeholders —
 personalize antes de publicar.
 
@@ -64,7 +69,9 @@ contra o preto (showcase).
 
 **Materiais.** O vidro usa refração de verdade (`transmission`), com a
 cor vindo da absorção ao longo do caminho óptico (`attenuationColor` +
-`attenuationDistance`), não de uma cor chapada. As tampas têm a serrilha
+`attenuationDistance`), não de uma cor chapada — é assim que o óleo
+dourado aparece dentro do frasco incolor, e que o pote do primer fica
+fosco (só aumentando o `roughness`). As tampas têm a serrilha
 modelada como geometria, então ela aparece na silhueta e nos reflexos. Os
 rótulos são texturas de 2048px desenhadas em canvas 2D, com relevo de
 papel no `bumpMap` e a lista de ingredientes no verso.

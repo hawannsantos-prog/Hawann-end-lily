@@ -113,8 +113,10 @@ document.querySelectorAll(".view[data-view]").forEach((el) => {
   const construir = CONSTRUTORES[el.dataset.view];
   if (!construir) return;
 
-  const chave = el.dataset.view;
-  const v = cenaCartao(palcoCards.ambiente, construir, { altura: chave === "kit" ? 2.1 : 2.5 });
+  // Cada formato tem uma altura própria, para o cartão manter a
+  // proporção real entre os frascos em vez de igualar todos.
+  const ALTURAS = { oleo: 2.7, serum: 2.35, primer: 1.95, colecao: 2.25 };
+  const v = cenaCartao(palcoCards.ambiente, construir, { altura: ALTURAS[el.dataset.view] ?? 2.4 });
   cartoes.push({
     el, ...v,
     velocidade: 0.3, velocidadeBase: 0.3, inercia: 0,

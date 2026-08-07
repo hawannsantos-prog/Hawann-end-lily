@@ -259,11 +259,12 @@ export function texturaRotulo(titulo, subtitulo, volume, cor) {
   const versoLinhas = [
     "MODO DE USO",
     "4 a 5 gotas no rosto limpo e seco,",
-    "de manhã e à noite, antes do hidratante.",
+    "de manhã e à noite, antes do primer.",
     "",
-    "Aqua, Niacinamide, Centella Asiatica",
-    "Extract, Panthenol, Glycerin,",
-    "Sodium Hyaluronate, Allantoin.",
+    "Simmondsia Chinensis (Jojoba) Seed Oil,",
+    "Aqua, Sodium Hyaluronate, Squalane,",
+    "Leontopodium Alpinum Callus Culture",
+    "Extract, Glycerin, Tocopherol.",
   ];
   [0, W].forEach((ancora) => {
     versoLinhas.forEach((l, i) => {
@@ -280,7 +281,7 @@ export function texturaRotulo(titulo, subtitulo, volume, cor) {
 /** Degradê do fundo infinito: claro atrás do produto, caindo para
  *  as bordas. É o que a luz de fundo faz num set real, e é o que
  *  separa o produto do fundo sem precisar de contorno. */
-export function texturaFundo(centro = "#fbf0dd", borda = "#c9ad86") {
+export function texturaFundo(centro = "#fdf4e4", borda = "#c8b287") {
   const c = document.createElement("canvas");
   c.width = c.height = 1024;
   const ctx = c.getContext("2d");
@@ -380,9 +381,9 @@ export function sombraContato(raio = 1.6, opacidade = 0.5) {
   c.width = c.height = 512;
   const ctx = c.getContext("2d");
   const g = ctx.createRadialGradient(256, 256, 8, 256, 256, 252);
-  g.addColorStop(0, "rgba(24,14,10,.95)");
-  g.addColorStop(0.35, "rgba(24,14,10,.42)");
-  g.addColorStop(1, "rgba(24,14,10,0)");
+  g.addColorStop(0, "rgba(26,22,12,.95)");
+  g.addColorStop(0.35, "rgba(26,22,12,.42)");
+  g.addColorStop(1, "rgba(26,22,12,0)");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, 512, 512);
 

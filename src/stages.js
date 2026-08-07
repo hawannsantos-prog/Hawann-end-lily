@@ -157,7 +157,7 @@ export function redimensionar(palco, largura, altura) {
 }
 
 /* ── Cena do herói: fundo infinito de estúdio ─────────────── */
-export function cenaHeroi(palco, construir, { altura = 2.6, corFundo = 0xe9dccd } = {}) {
+export function cenaHeroi(palco, construir, { altura = 2.6, corFundo = 0xe8dcc2 } = {}) {
   const cena = new THREE.Scene();
   cena.environment = palco.ambiente;
   cena.background = new THREE.Color(corFundo);   // fora do ciclorama
@@ -215,7 +215,7 @@ export function cenaHeroi(palco, construir, { altura = 2.6, corFundo = 0xe9dccd 
 export function cenaShowcase(palco, construir, { altura = 3.2 } = {}) {
   const cena = new THREE.Scene();
   cena.environment = palco.ambiente;
-  cena.background = new THREE.Color(0x14100e);
+  cena.background = new THREE.Color(0x14150f);
 
   const pivo = new THREE.Group();
   const produto = construir();
@@ -259,9 +259,9 @@ export function cenaShowcase(palco, construir, { altura = 3.2 } = {}) {
   veu.height = 256;
   const vctx = veu.getContext("2d");
   const vg = vctx.createLinearGradient(0, 0, 0, 256);
-  vg.addColorStop(0, "rgba(20,16,14,0)");
-  vg.addColorStop(0.45, "rgba(20,16,14,.72)");
-  vg.addColorStop(1, "rgba(20,16,14,1)");
+  vg.addColorStop(0, "rgba(20,21,15,0)");
+  vg.addColorStop(0.45, "rgba(20,21,15,.72)");
+  vg.addColorStop(1, "rgba(20,21,15,1)");
   vctx.fillStyle = vg;
   vctx.fillRect(0, 0, 4, 256);
 

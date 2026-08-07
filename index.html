@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dermovita — Skincare direcionado em 3D</title>
-<meta name="description" content="Dermovita: skincare dermatologicamente testado para pele sensível, melasma, rosácea e acne. Catálogo pequeno e direcionado, com produtos em 3D interativo." />
-<meta name="theme-color" content="#faf6f2" />
+<title>Dermovita — Skincare com jojoba orgânico, em 3D</title>
+<meta name="description" content="Dermovita: rotina de três passos em torno do óleo de jojoba orgânico prensado a frio — limpeza, sérum e primer, com os produtos em 3D interativo." />
+<meta name="theme-color" content="#faf7f0" />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Dermovita — Skincare direcionado" />
+<meta property="og:title" content="Dermovita — Skincare com jojoba orgânico" />
 <meta property="og:description" content="Cuidado de pele pensado pra sua rotina real." />
 
 <link rel="preload" href="./vendor/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -65,11 +65,11 @@
   <section class="hero">
     <div class="shell hero__inner">
       <div class="hero__copy">
-        <p class="eyebrow">Skincare dermatologicamente testado</p>
+        <p class="eyebrow">Jojoba orgânico prensado a frio</p>
         <h1>Cuidado de pele pensado pra<br /><em>sua rotina real</em></h1>
         <p class="lede">
-          Produtos de skincare direcionados — pele sensível, melasma, rosácea e acne —
-          sem enrolação, com ingredientes que fazem sentido pro seu tipo de pele.
+          Três passos sobre uma base só: óleo de jojoba orgânico prensado a frio.
+          Limpa, hidrata e prepara a pele — sem prateleira infinita de produtos.
         </p>
 
         <div class="hero__cta">
@@ -86,7 +86,7 @@
 
       <!-- Cena do herói: canvas próprio, porque usa pós-processamento -->
       <div class="hero__stage" role="img"
-           aria-label="Fotografia 3D do frasco do sérum calmante, girando sobre fundo de estúdio">
+           aria-label="Fotografia 3D do frasco do sérum firmador, girando sobre fundo de estúdio">
         <canvas id="hero-canvas"></canvas>
         <p class="stage__hint" id="hero-hint">Arraste para girar</p>
       </div>
@@ -98,67 +98,66 @@
     <div class="shell">
       <header class="section__head">
         <p class="eyebrow">Catálogo</p>
-        <h2>Nossos best-sellers</h2>
+        <h2>A rotina inteira</h2>
         <p class="lede">
-          Uma curadoria pequena e direcionada — cada produto resolve um problema
-          específico de pele.
+          Três produtos, não trinta. Foram formulados para trabalhar juntos, na
+          ordem em que você usa.
         </p>
       </header>
 
       <ul class="grid grid--products" id="produtos-grid">
 
         <li class="card card--product" data-tilt>
+          <div class="view view--product" data-view="oleo" role="img"
+               aria-label="Frasco alto com válvula do óleo de limpeza em 3D"></div>
+          <div class="card__body">
+            <h3>Óleo de Limpeza</h3>
+            <p>Dissolve maquiagem e protetor solar sem ressecar. Enxágua limpo, sem deixar filme na pele.</p>
+            <div class="price">
+              <span class="price__now">R$ 289</span>
+            </div>
+          </div>
+          <button class="add" type="button" data-add="Óleo de Limpeza" aria-label="Adicionar Óleo de Limpeza à sacola">+</button>
+        </li>
+
+        <li class="card card--product" data-tilt>
           <div class="view view--product" data-view="serum" role="img"
-               aria-label="Frasco conta-gotas do sérum calmante em 3D"></div>
+               aria-label="Frasco conta-gotas do sérum firmador em 3D"></div>
           <div class="card__body">
-            <h3>Sérum Calmante</h3>
-            <p>Niacinamida + centella asiática para peles sensíveis e com rosácea.</p>
+            <h3>Sérum Firmador</h3>
+            <p>Ácido hialurônico e edelvaisse: hidrata na hora e firma com o uso contínuo.</p>
             <div class="price">
-              <span class="price__old">R$ 129</span>
-              <span class="price__now">R$ 89</span>
+              <span class="price__now">R$ 419</span>
             </div>
           </div>
-          <button class="add" type="button" data-add="Sérum Calmante" aria-label="Adicionar Sérum Calmante à sacola">+</button>
+          <button class="add" type="button" data-add="Sérum Firmador" aria-label="Adicionar Sérum Firmador à sacola">+</button>
         </li>
 
         <li class="card card--product" data-tilt>
-          <div class="view view--product" data-view="fps" role="img"
-               aria-label="Bisnaga do protetor solar FPS 60 em 3D"></div>
+          <div class="view view--product" data-view="primer" role="img"
+               aria-label="Pote de vidro fosco do primer botânico em 3D"></div>
           <div class="card__body">
-            <h3>Protetor Solar FPS 60</h3>
-            <p>Toque seco, sem marcas brancas, ideal para uso diário sob maquiagem.</p>
+            <h3>Primer Botânico</h3>
+            <p>Creme leve de jojoba com esqualano. Segura a maquiagem e hidrata o dia inteiro.</p>
             <div class="price">
-              <span class="price__now">R$ 74</span>
+              <span class="price__now">R$ 329</span>
             </div>
           </div>
-          <button class="add" type="button" data-add="Protetor Solar FPS 60" aria-label="Adicionar Protetor Solar FPS 60 à sacola">+</button>
+          <button class="add" type="button" data-add="Primer Botânico" aria-label="Adicionar Primer Botânico à sacola">+</button>
         </li>
 
         <li class="card card--product" data-tilt>
-          <div class="view view--product" data-view="clareador" role="img"
-               aria-label="Frasco com pump do clareador de manchas em 3D"></div>
+          <div class="view view--product" data-view="colecao" role="img"
+               aria-label="Os três produtos da coleção completa em 3D"></div>
           <div class="card__body">
-            <h3>Clareador de Manchas</h3>
-            <p>Ácido tranexâmico para melasma e manchas de sol, uso noturno.</p>
+            <h3>Coleção Completa</h3>
+            <p>Os três passos juntos: limpeza, sérum e primer. A rotina inteira num pedido só.</p>
             <div class="price">
-              <span class="price__old">R$ 159</span>
-              <span class="price__now">R$ 119</span>
+              <span class="price__old">R$ 1.037</span>
+              <span class="price__now">R$ 899</span>
             </div>
           </div>
-          <button class="add" type="button" data-add="Clareador de Manchas" aria-label="Adicionar Clareador de Manchas à sacola">+</button>
-        </li>
-
-        <li class="card card--product" data-tilt>
-          <div class="view view--product" data-view="kit" role="img"
-               aria-label="Trio de produtos do kit rotina completa em 3D"></div>
-          <div class="card__body">
-            <h3>Kit Rotina Completa</h3>
-            <p>Limpeza + sérum + hidratante, o essencial para começar sem errar.</p>
-            <div class="price">
-              <span class="price__now">R$ 199</span>
-            </div>
-          </div>
-          <button class="add" type="button" data-add="Kit Rotina Completa" aria-label="Adicionar Kit Rotina Completa à sacola">+</button>
+          <button class="add" type="button" data-add="Coleção Completa" aria-label="Adicionar Coleção Completa à sacola">+</button>
         </li>
 
       </ul>
@@ -169,7 +168,7 @@
   <section class="showcase" id="showcase">
     <div class="shell showcase__head">
       <p class="eyebrow eyebrow--claro">Por dentro do produto</p>
-      <h2>Sérum Calmante, de perto</h2>
+      <h2>Sérum Firmador, de perto</h2>
       <p class="lede lede--claro">
         Role a página para girar o frasco. Cada detalhe da embalagem existe
         por um motivo — e nenhum deles é enfeite.
@@ -183,29 +182,29 @@
         <div class="hotspot" data-id="vidro">
           <span class="hotspot__dot"></span>
           <span class="hotspot__card">
-            <strong>Vidro âmbar</strong>
-            Barra a luz que oxida a niacinamida e mantém a fórmula estável até o fim do frasco.
+            <strong>Vidro, não plástico</strong>
+            Não reage com a fórmula e não solta micropartícula no produto — e volta para a reciclagem quantas vezes precisar.
           </span>
         </div>
         <div class="hotspot" data-id="pipeta">
           <span class="hotspot__dot"></span>
           <span class="hotspot__card">
             <strong>Conta-gotas graduado</strong>
-            Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato com a pele.
+            Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato da pele com o que sobra no frasco.
           </span>
         </div>
         <div class="hotspot" data-id="colar">
           <span class="hotspot__dot"></span>
           <span class="hotspot__card">
             <strong>Lacre de alumínio</strong>
-            Fecha a rosca por completo: nada evapora e nada entra depois de aberto.
+            Fecha a rosca por completo: o óleo não oxida e nada entra depois de aberto.
           </span>
         </div>
         <div class="hotspot" data-id="rotulo">
           <span class="hotspot__dot"></span>
           <span class="hotspot__card">
             <strong>Fórmula declarada</strong>
-            Percentual de ativo impresso no rótulo, não escondido na lista de ingredientes.
+            Ativo e percentual impressos na frente do rótulo, não escondidos no fim da lista de ingredientes.
           </span>
         </div>
       </div>
@@ -214,10 +213,10 @@
     <!-- Mesma informação dos destaques, em texto, para leitores de
          tela e para quem não tem WebGL. -->
     <ul class="showcase__lista shell">
-      <li><strong>Vidro âmbar</strong> Barra a luz que oxida a niacinamida e mantém a fórmula estável até o fim do frasco.</li>
-      <li><strong>Conta-gotas graduado</strong> Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato com a pele.</li>
-      <li><strong>Lacre de alumínio</strong> Fecha a rosca por completo: nada evapora e nada entra depois de aberto.</li>
-      <li><strong>Fórmula declarada</strong> Percentual de ativo impresso no rótulo, não escondido na lista de ingredientes.</li>
+      <li><strong>Vidro, não plástico</strong> Não reage com a fórmula e não solta micropartícula no produto — e volta para a reciclagem quantas vezes precisar.</li>
+      <li><strong>Conta-gotas graduado</strong> Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato da pele com o que sobra no frasco.</li>
+      <li><strong>Lacre de alumínio</strong> Fecha a rosca por completo: o óleo não oxida e nada entra depois de aberto.</li>
+      <li><strong>Fórmula declarada</strong> Ativo e percentual impressos na frente do rótulo, não escondidos no fim da lista de ingredientes.</li>
     </ul>
   </section>
 
@@ -226,10 +225,10 @@
     <div class="shell">
       <header class="section__head">
         <p class="eyebrow">Por que a Dermovita</p>
-        <h2>Skincare direcionado, sem achismo</h2>
+        <h2>Uma base, três passos</h2>
         <p class="lede">
-          Cada produto do catálogo é escolhido pra resolver um problema de pele
-          específico — não vendemos “beleza genérica”.
+          O jojoba é o óleo vegetal mais parecido com o sebo da própria pele. Por
+          isso a linha inteira parte dele — e serve de pele seca a oleosa.
         </p>
       </header>
 
@@ -238,8 +237,8 @@
           <span class="feature__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           </span>
-          <h3>Curadoria por problema de pele</h3>
-          <p>Sem prateleira infinita: só produtos testados pra melasma, rosácea, acne e pele sensível.</p>
+          <h3>Não comedogênico, para todo tipo de pele</h3>
+          <p>Jojoba não entope poro: funciona igual em pele seca, oleosa, sensível ou com tendência a acne.</p>
         </li>
 
         <li class="card card--feature" data-tilt>
@@ -272,7 +271,7 @@
       <ul class="grid grid--quotes">
         <li class="card card--quote" data-tilt>
           <p class="stars" aria-label="5 de 5 estrelas">★★★★★</p>
-          <blockquote>“O sérum calmante foi o único produto que não irritou minha rosácea. Já é o terceiro pote.”</blockquote>
+          <blockquote>“O óleo de limpeza tira o protetor solar inteiro e minha pele não fica repuxada. Já é o terceiro frasco.”</blockquote>
           <figcaption class="who"><span class="who__avatar" aria-hidden="true">JM</span>
             <span><strong>Juliana M.</strong><small>Cliente desde 2025</small></span>
           </figcaption>
@@ -280,7 +279,7 @@
 
         <li class="card card--quote" data-tilt>
           <p class="stars" aria-label="5 de 5 estrelas">★★★★★</p>
-          <blockquote>“Finalmente uma loja que explica pra quem é cada produto, em vez de empurrar tudo igual.”</blockquote>
+          <blockquote>“Finalmente uma linha curta. Três produtos, na ordem certa, e acabou a dúvida do que passar antes.”</blockquote>
           <figcaption class="who"><span class="who__avatar" aria-hidden="true">CR</span>
             <span><strong>Camila R.</strong><small>Cliente desde 2025</small></span>
           </figcaption>
@@ -288,7 +287,7 @@
 
         <li class="card card--quote" data-tilt>
           <p class="stars" aria-label="5 de 5 estrelas">★★★★★</p>
-          <blockquote>“Entrega rápida e o kit de rotina realmente simplificou minha vida. Recomendo.”</blockquote>
+          <blockquote>“Comprei a coleção completa e larguei outros cinco produtos. O primer sozinho já valeu.”</blockquote>
           <figcaption class="who"><span class="who__avatar" aria-hidden="true">TP</span>
             <span><strong>Thaís P.</strong><small>Cliente desde 2026</small></span>
           </figcaption>
@@ -302,7 +301,7 @@
     <div class="shell cta__inner">
       <div>
         <h2>Ficou com dúvida sobre qual produto usar?</h2>
-        <p>Manda uma mensagem no WhatsApp e a gente te ajuda a montar a rotina certa pro seu tipo de pele.</p>
+        <p>Manda uma mensagem no WhatsApp e a gente te diz por onde começar na sua pele.</p>
       </div>
       <a class="btn btn--solid btn--lg" href="https://wa.me/5500000000000" target="_blank" rel="noopener">
         Falar no WhatsApp →
@@ -319,7 +318,7 @@
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__name">Dermovita</span>
       </a>
-      <p>Skincare direcionado para problemas de pele específicos. Curadoria pequena, resultado real.</p>
+      <p>Rotina de três passos em torno do óleo de jojoba orgânico prensado a frio. Linha curta, resultado real.</p>
       <p class="badge">Site modelo — personalize antes de publicar</p>
     </div>
 
