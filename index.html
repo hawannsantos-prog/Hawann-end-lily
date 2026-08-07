@@ -11,9 +11,9 @@
 <meta property="og:title" content="Dermovita — Skincare direcionado" />
 <meta property="og:description" content="Cuidado de pele pensado pra sua rotina real." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="./vendor/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="./vendor/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="./fonts.css" />
 <link rel="stylesheet" href="./styles.css" />
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧴</text></svg>" />
@@ -29,8 +29,8 @@
 </head>
 <body>
 
-<!-- Canvas único compartilhado por todas as cenas 3D da página -->
-<canvas id="scene" aria-hidden="true"></canvas>
+<!-- Canvas compartilhado pelas cenas dos cartões do catálogo -->
+<canvas id="cards-canvas" aria-hidden="true"></canvas>
 
 <a class="skip" href="#produtos">Pular para os produtos</a>
 
@@ -84,11 +84,10 @@
         </dl>
       </div>
 
-      <div class="hero__stage">
-        <div class="stage__glow" aria-hidden="true"></div>
-        <!-- Área reservada para a cena 3D do herói -->
-        <div class="view view--hero" data-view="hero" role="img"
-             aria-label="Frasco do sérum calmante girando em 3D"></div>
+      <!-- Cena do herói: canvas próprio, porque usa pós-processamento -->
+      <div class="hero__stage" role="img"
+           aria-label="Fotografia 3D do frasco do sérum calmante, girando sobre fundo de estúdio">
+        <canvas id="hero-canvas"></canvas>
         <p class="stage__hint" id="hero-hint">Arraste para girar</p>
       </div>
     </div>
@@ -164,6 +163,62 @@
 
       </ul>
     </div>
+  </section>
+
+  <!-- ───────────────────────── SHOWCASE ─────────────────────── -->
+  <section class="showcase" id="showcase">
+    <div class="shell showcase__head">
+      <p class="eyebrow eyebrow--claro">Por dentro do produto</p>
+      <h2>Sérum Calmante, de perto</h2>
+      <p class="lede lede--claro">
+        Role a página para girar o frasco. Cada detalhe da embalagem existe
+        por um motivo — e nenhum deles é enfeite.
+      </p>
+    </div>
+
+    <div class="showcase__stage">
+      <canvas id="showcase-canvas"></canvas>
+
+      <div class="hotspots" aria-hidden="true">
+        <div class="hotspot" data-id="vidro">
+          <span class="hotspot__dot"></span>
+          <span class="hotspot__card">
+            <strong>Vidro âmbar</strong>
+            Barra a luz que oxida a niacinamida e mantém a fórmula estável até o fim do frasco.
+          </span>
+        </div>
+        <div class="hotspot" data-id="pipeta">
+          <span class="hotspot__dot"></span>
+          <span class="hotspot__card">
+            <strong>Conta-gotas graduado</strong>
+            Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato com a pele.
+          </span>
+        </div>
+        <div class="hotspot" data-id="colar">
+          <span class="hotspot__dot"></span>
+          <span class="hotspot__card">
+            <strong>Lacre de alumínio</strong>
+            Fecha a rosca por completo: nada evapora e nada entra depois de aberto.
+          </span>
+        </div>
+        <div class="hotspot" data-id="rotulo">
+          <span class="hotspot__dot"></span>
+          <span class="hotspot__card">
+            <strong>Fórmula declarada</strong>
+            Percentual de ativo impresso no rótulo, não escondido na lista de ingredientes.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mesma informação dos destaques, em texto, para leitores de
+         tela e para quem não tem WebGL. -->
+    <ul class="showcase__lista shell">
+      <li><strong>Vidro âmbar</strong> Barra a luz que oxida a niacinamida e mantém a fórmula estável até o fim do frasco.</li>
+      <li><strong>Conta-gotas graduado</strong> Dosa 4 a 5 gotas por aplicação — sem desperdício e sem contato com a pele.</li>
+      <li><strong>Lacre de alumínio</strong> Fecha a rosca por completo: nada evapora e nada entra depois de aberto.</li>
+      <li><strong>Fórmula declarada</strong> Percentual de ativo impresso no rótulo, não escondido na lista de ingredientes.</li>
+    </ul>
   </section>
 
   <!-- ────────────────────────── SOBRE ───────────────────────── -->

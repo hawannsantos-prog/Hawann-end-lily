@@ -64,36 +64,38 @@ p { margin: 0; }
   border-radius: 8px;
 }
 
-/* ── Canvas 3D compartilhado ─────────────────────────────────
+/* ── Canvas dos cartões do catálogo ──────────────────────────
+   Um canvas só, fixo, recortado por scissor nas áreas `.view`.
    Fica ACIMA do conteúdo (z-index 5) porque os cartões têm fundo
-   opaco e esconderiam o canvas se ele ficasse atrás. Só os
-   recortes das áreas `.view` são realmente desenhados, então o
-   resto da página continua visível. A barra de navegação usa
-   z-index maior e passa por cima. */
-#scene {
+   opaco e o esconderiam se ficasse atrás; como apenas os recortes
+   são desenhados, o resto da página continua visível. A barra de
+   navegação usa z-index maior e passa por cima. */
+#cards-canvas {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 5;
-  pointer-events: none;   /* o arraste é capturado pelos elementos .view */
+  pointer-events: none;
   display: block;
 }
-body.no-webgl #scene { display: none; }
+body.no-webgl #cards-canvas { display: none; }
 
-/* Áreas onde as cenas são desenhadas (recortes do canvas fixo) */
 .view { position: relative; }
-.view--hero    { width: 100%; aspect-ratio: 1 / 1; max-height: 62vh; cursor: grab; pointer-events: auto; touch-action: pan-y; }
-.view--hero:active { cursor: grabbing; }
 .view--product { width: 100%; aspect-ratio: 4 / 3; }
 
 /* Fallback sem WebGL: silhueta em CSS no lugar do 3D */
-body.no-webgl .view {
+body.no-webgl .view,
+body.no-webgl .hero__stage,
+body.no-webgl .showcase__stage {
   border-radius: var(--radius);
   background:
     radial-gradient(60% 45% at 50% 30%, rgba(168, 98, 76, .22), transparent 70%),
     linear-gradient(180deg, var(--bg-alt), var(--surface));
 }
+body.no-webgl canvas,
+body.no-webgl .hotspots,
+body.no-webgl .stage__hint { display: none; }
 
 /* ── Navegação ───────────────────────────────────────────── */
 .nav {
@@ -178,16 +180,28 @@ body.no-webgl .view {
 .stats dt { font-family: var(--serif); font-size: 1.6rem; }
 .stats dd { margin: 2px 0 0; font-size: .85rem; color: var(--ink-soft); }
 
-.hero__stage { position: relative; display: grid; place-items: center; }
-.stage__glow {
-  position: absolute; inset: 6% 6% 10%;
-  background: radial-gradient(50% 50% at 50% 45%, rgba(168, 98, 76, .28), transparent 70%);
-  filter: blur(30px);
+/* Painel do herói: é uma fotografia de estúdio renderizada ao
+   vivo, então ganha cantos arredondados e sombra de moldura. */
+.hero__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 66vh;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  box-shadow: 0 30px 70px -46px rgba(42, 33, 29, .55);
 }
+.hero__stage:active { cursor: grabbing; }
+.hero__stage > canvas { display: block; width: 100%; height: 100%; }
+
 .stage__hint {
-  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-  font-size: .78rem; color: var(--ink-soft); letter-spacing: .06em;
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-size: .76rem; color: var(--ink-soft); letter-spacing: .06em;
   display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(255, 252, 250, .72); backdrop-filter: blur(6px);
   transition: opacity .4s ease;
 }
 .stage__hint::before { content: ""; width: 22px; height: 1px; background: currentColor; }
@@ -203,6 +217,85 @@ body.no-webgl .view {
 .grid--products { grid-template-columns: repeat(4, 1fr); }
 .grid--features { grid-template-columns: repeat(3, 1fr); }
 .grid--quotes   { grid-template-columns: repeat(3, 1fr); }
+
+/* ── Showcase: o produto em tela cheia, fundo escuro ─────── */
+.showcase {
+  position: relative;
+  background: #14100e;
+  color: #f3e9e0;
+  padding: 84px 0 0;
+}
+.showcase__head { max-width: 60ch; margin-bottom: 40px; }
+.showcase__head h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 16px; }
+.eyebrow--claro { color: #d99e7f; }
+.lede--claro { color: rgba(243, 233, 224, .66); }
+
+.showcase__stage {
+  position: relative;
+  width: 100%;
+  height: min(68vh, 660px);
+  overflow: hidden;
+}
+.showcase__stage > canvas { display: block; width: 100%; height: 100%; }
+
+/* Pontos de destaque: posicionados por JS a partir da projeção
+   das âncoras 3D, então acompanham o frasco enquanto ele gira. */
+.hotspots { position: absolute; inset: 0; pointer-events: none; }
+.hotspot {
+  position: absolute; top: 0; left: 0;
+  width: 0; height: 0;
+  transition: opacity .35s ease;
+}
+.hotspot.is-atras { opacity: 0; }
+
+.hotspot__dot {
+  position: absolute; left: -6px; top: -6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #f3e9e0;
+  box-shadow: 0 0 0 1px rgba(243, 233, 224, .5), 0 0 22px 6px rgba(217, 158, 127, .5);
+}
+.hotspot__dot::after {
+  content: ""; position: absolute; inset: -7px;
+  border: 1px solid rgba(243, 233, 224, .45); border-radius: 50%;
+  animation: pulso 2.8s ease-out infinite;
+}
+@keyframes pulso {
+  0%   { transform: scale(.6); opacity: .9; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.hotspot__card {
+  position: absolute; left: 132px; top: -16px;
+  width: 244px; display: flex; flex-direction: column; gap: 5px;
+  padding: 14px 16px; border-radius: 14px;
+  background: rgba(30, 24, 20, .74);
+  border: 1px solid rgba(243, 233, 224, .14);
+  backdrop-filter: blur(10px);
+  font-size: .84rem; line-height: 1.5; color: rgba(243, 233, 224, .72);
+}
+.hotspot__card strong {
+  font-family: var(--serif); font-size: 1rem; font-weight: 600; color: #f8f1ea;
+}
+/* Traço ligando o ponto ao cartão. */
+.hotspot__card::before {
+  content: ""; position: absolute; left: -120px; top: 22px;
+  width: 112px; height: 1px; background: rgba(243, 233, 224, .35);
+}
+.hotspot.is-esquerda .hotspot__card { left: auto; right: 132px; }
+.hotspot.is-esquerda .hotspot__card::before { left: auto; right: -120px; }
+
+/* Versão em texto: some quando o 3D está no ar. */
+.showcase__lista { display: none; }
+body.no-webgl .showcase__lista {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  padding-top: 40px;
+}
+body.no-webgl .showcase__lista li { color: rgba(243, 233, 224, .66); font-size: .92rem; }
+body.no-webgl .showcase__lista strong {
+  display: block; font-family: var(--serif); font-size: 1.05rem; color: #f8f1ea; margin-bottom: 4px;
+}
+body.no-webgl .showcase__stage { height: 260px; }
 
 /* ── Cartões (com profundidade 3D real) ──────────────────── */
 .card {
@@ -322,8 +415,11 @@ body.no-webgl .view {
   .nav__links { display: none; }
   .hero { padding-top: calc(var(--nav-h) + 28px); }
   .hero__inner { grid-template-columns: 1fr; gap: 24px; }
-  .hero__stage { order: -1; width: min(100%, 420px); margin-inline: auto; }
-  .view--hero { max-height: 46vh; }
+  .hero__stage { order: -1; width: min(100%, 440px); margin-inline: auto; max-height: 52vh; }
+  .showcase { padding-top: 72px; }
+  .showcase__stage { height: 62vh; }
+  .hotspot__card { width: 190px; font-size: .78rem; padding: 11px 13px; }
+  body.no-webgl .showcase__lista { grid-template-columns: 1fr; }
   .grid--features, .grid--quotes { grid-template-columns: 1fr; }
   .cta__inner { padding: 38px 26px; }
   .section { padding: 72px 0; }
